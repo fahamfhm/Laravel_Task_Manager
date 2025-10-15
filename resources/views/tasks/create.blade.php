@@ -34,6 +34,22 @@
                     @error('category_id') <span class="text-red-600 text-sm">{{ $message }}</span> @enderror
                 </div>
 
+                <!-- Assign To -->
+                @if(auth()->user()->role === 'admin')
+                <div class="mb-4">
+                    <label class="block font-medium text-gray-700">Assign To</label>
+                    <select name="user_id" class="w-full mt-1 border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500" required>
+                        <option value="">-- Select User --</option>
+                        @foreach($users as $user)
+                            <option value="{{ $user->id }}">{{ $user->name }}</option>
+                        @endforeach
+                    </select>
+                    @error('category_id') <span class="text-red-600 text-sm">{{ $message }}</span> @enderror
+                </div>
+                @else
+                    <input type="hidden" name="user_id" value="{{ auth()->id() }}">
+                @endif
+
                 <!-- Deadline -->
                 <div class="mb-4">
                     <label class="block font-medium text-gray-700">Deadline</label>

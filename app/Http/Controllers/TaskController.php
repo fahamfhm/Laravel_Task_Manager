@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Task;
+use App\Models\User;
 use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -14,7 +15,11 @@ class TaskController extends Controller
      */
     public function index()
     {
-        $tasks = Task::all();
+        if (Auth::user()->role === 'admin') {
+            $tasks = Task::with('category', 'user')->get();
+        } else {
+            $tasks = Task::with('category', 'user')->where('user_id', Auth::id())->get();
+        }
         return view('tasks.index', compact('tasks'));
     }
 
@@ -23,8 +28,9 @@ class TaskController extends Controller
      */
     public function create()
     {
+        $users = User::all();
         $categories = Category::all();
-        return view('tasks.create', compact('categories'));
+        return view('tasks.create', compact('categories', 'users'));
     }
 
     /**
@@ -48,7 +54,7 @@ class TaskController extends Controller
         'category_id' => $request->category_id,
         'deadline' => $request->deadline,
         'status' => $request->status,
-        'user_id' => Auth::id(),          // assign current user
+        'user_id' => $request->user_id,          // assign current user
         'assignment_date' => now(),         // automatically set assignment date
     ]);
 
@@ -60,6 +66,9 @@ class TaskController extends Controller
      */
     public function show(Task $task)
     {
+        if (Auth::user()->role !== 'admin' && $task->user_id !== Auth::id()) {
+            return redirect()->route('tasks.index')->with('error', 'Unauthorized access.');
+        }
         return view('tasks.show', compact('task'));
     }
 
@@ -68,9 +77,13 @@ class TaskController extends Controller
      */
     public function edit(Task $task)
     {
-        $task = Task::findOrFail($task->id);
+        if (Auth::user()->role !== 'admin' && $task->user_id !== Auth::id()) {
+            return redirect()->route('tasks.index')->with('error', 'Unauthorized access.');
+        }
+
+        $users = User::all();
         $categories = Category::all();
-        return view('tasks.edit', compact('task', 'categories'));
+        return view('tasks.edit', compact('task', 'categories', 'users'));
     }
 
     /**
@@ -78,6 +91,10 @@ class TaskController extends Controller
      */
     public function update(Request $request, Task $task)
     {
+        if(Auth::user()->role !== 'admin' && $task->user_id !== Auth::id()) {
+            return redirect()->route('tasks.index')->with('error', 'Unauthorized access.');
+        }
+
         $request->validate([
             'task_name' => 'required|string|max:255',
             'description' => 'nullable|string',
@@ -96,6 +113,10 @@ class TaskController extends Controller
      */
     public function destroy(Task $task)
     {
+        if(Auth::user()->role !== 'admin' && $task->user_id !== Auth::id()) {
+            return redirect()->route('tasks.index')->with('error', 'Unauthorized access.');
+        }
+
         $task->delete();
         return to_route('tasks.index')->with('success', 'Task deleted successfully.');
     }
