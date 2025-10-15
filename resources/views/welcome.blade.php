@@ -9,7 +9,7 @@
         <!-- Fonts -->
         <link rel="preconnect" href="https://fonts.bunny.net">
         <link href="https://fonts.bunny.net/css?family=instrument-sans:400,500,600" rel="stylesheet" />
-
+        
         <!-- Styles / Scripts -->
         @if (file_exists(public_path('build/manifest.json')) || file_exists(public_path('hot')))
             @vite(['resources/css/app.css', 'resources/js/app.js'])
@@ -26,7 +26,7 @@
                     @auth
                         <a
                             href="{{ url('/dashboard') }}"
-                            class="inline-block px-5 py-1.5 dark:text-[#EDEDEC] border-[#19140035] hover:border-[#1915014a] border text-[#1b1b18] dark:border-[#3E3E3A] dark:hover:border-[#62605b] rounded-sm text-sm leading-normal"
+                            class="inline-block px-5 py-1.5 dark:bg-black dark:text-[#EDEDEC] border-[#19140035] hover:border-[#1915014a] border text-[#1b1b18] dark:border-[#3E3E3A] dark:hover:border-[#62605b] rounded-sm text-sm leading-normal"
                         >
                             Dashboard
                         </a>
@@ -50,20 +50,17 @@
             @endif
         </header>
         <div class="flex items-center justify-center w-full transition-opacity opacity-100 duration-750 lg:grow starting:opacity-0">
-            <main class="flex max-w-[335px] w-full flex-col-reverse lg:max-w-4xl lg:flex-row">
+            <main class="flex w-full flex-col-reverse lg:flex-row justify-center">
                 <div class="lg:pr-16 lg:pt-0 pt-6">
-                    <h1 class="text-4xl font-extrabold leading-tight lg:text-5xl lg:leading-tight">
+                    <h1 class="text-4xl font-extrabold leading-tight lg:text-5xl lg:leading-tight text-center">
                         Task Manager
                     </h1>
-                    <p class="mt-4 text-lg leading-relaxed lg:text-xl lg:leading-relaxed">
+                    <p class="mt-4 text-lg leading-relaxed lg:text-xl lg:leading-relaxed text-center">
                         Organize your tasks efficiently and boost your productivity with our intuitive Task Manager application.
                     </p>
                     
                 </div>
-                <div class="flex justify-center lg:justify-end lg:pl-16">
-                   <div class="w-48 h-48 lg:w-64 lg:h-64 bg-[url('/images/task-manager-illustration.png')] bg-contain bg-center bg-no-repeat"></div>
-
-                </div>
+                
             </main>
         </div>
 
