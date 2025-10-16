@@ -80,66 +80,13 @@ php artisan serve
 ```
 Now open your browser and visit:
 👉 http://localhost:8000
-```
 
-```
-### 🧑‍💻 User Roles
-Role	Description
-Admin	Can manage all tasks, categories, and users.
-Intern	Can manage only their assigned tasks.
-
-```
-```
-
-### 📂 Folder Structure Overview
-swift
-Copy code
-├── app/
-│   ├── Http/Controllers/
-│   ├── Models/
-│   └── ...
-├── resources/views/
-│   ├── tasks/
-│   ├── categories/
-│   └── layouts/
-├── routes/
-│   └── web.php
-├── database/
-│   ├── migrations/
-│   └── seeders/
-└── public/
-```
-```
-### 🧰 Useful Artisan Commands
-
-Command	Description
-php artisan migrate	Run all migrations
-php artisan serve	Start local server
-php artisan make:model ModelName -mcr	Create model, migration, controller, and resource
-npm run dev	Compile frontend assets
-php artisan tinker	Launch interactive Laravel shell
-
-🤝 Contributing
-Contributions, issues, and feature requests are welcome!
-
-To contribute:
-
-Fork the repository
-
-Create a new branch (git checkout -b feature-name)
-
-Commit your changes (git commit -m "Add new feature")
-
-Push to your branch (git push origin feature-name)
-
-Create a Pull Request
-
-📄 License
-This project is licensed under the MIT License.
-You’re free to modify and distribute it with proper credit.
+---
 
 👨‍💻 Developer
 Developed by: Faham
-🎓 NEST Academy | 💻 University of Sri Jayewardenepura
+🎓 University of Sri Jayewardenepura
+💻 Intern SE IT Starter PVT LTD
 🚀 Passionate about web development and Laravel-based applications.
 
+---
