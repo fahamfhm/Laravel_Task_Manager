@@ -42,31 +42,36 @@ Follow these steps to set up and run the project locally 👇
 ```bash
 git clone https://github.com/fahamfhm/laravel-taskmanager.git
 cd laravel-taskmanager
-2. Install Dependencies
-bash
-Copy code
+```
+
+### 2. Install Dependencies
+```bash
 composer install
 npm install
 npm run dev
-3. Create Environment File
-bash
-Copy code
-cp .env.example .env
-4. Configure Database
-Open the .env file and update your database credentials:
+```
 
-env
-Copy code
+###3. Create Environment File
+```bash
+cp .env.example .env
+```
+
+###4. Configure Database
+Open the .env file and update your database credentials:
+```bash
 DB_DATABASE=taskmanager
 DB_USERNAME=root
 DB_PASSWORD=
-5. Generate Application Key
-bash
-Copy code
+```
+
+###5. Generate Application Key
+```bash
 php artisan key:generate
-6. Run Migrations and Seeders
-bash
-Copy code
+```
+
+###6. Run Migrations and Seeders
+```bash
+
 php artisan migrate --seed
 7. Start the Development Server
 bash
