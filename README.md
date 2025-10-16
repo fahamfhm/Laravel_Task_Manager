@@ -85,8 +85,8 @@ Now open your browser and visit:
 
 👨‍💻 Developer
 Developed by: Faham
-🎓 University of Sri Jayewardenepura
-💻 Intern SE IT Starter PVT LTD
-🚀 Passionate about web development and Laravel-based applications.
+- 🎓 University of Sri Jayewardenepura
+- 💻 Intern SE IT Starter PVT LTD
+- 🚀 Passionate about web development and Laravel-based applications.
 
 ---
