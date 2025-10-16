@@ -7,11 +7,12 @@
     </x-slot>
 
     <div class="py-6">
+        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
          {{-- Success Message --}}
             @if(session('success'))
                 <div 
                     id="flash-message"
-                    class="bg-green-100 border border-green-400 text-green-700 w-[60%] mx-auto px-4 py-2 rounded mb-4 transition-opacity duration-500"
+                    class="bg-green-100 border border-green-400 text-green-700 px-4 py-2 rounded mb-4 transition-opacity duration-500"
                 >
                     {{ session('success') }}
                 </div>
@@ -26,7 +27,7 @@
                 </script>
             @endif
 
-        <div class="overflow-x-auto bg-white shadow-md rounded-lg w-[90%] mx-auto">
+        <div class="overflow-x-auto bg-white shadow-md rounded-lg ">
             <table class="min-w-full border border-gray-200 rounded-lg">
                 <thead class="bg-gray-100">
                     <tr>
@@ -63,6 +64,7 @@
                     @endforeach
                 </tbody>
             </table>
+        </div>
         </div>
     </div>
 </x-app-layout>

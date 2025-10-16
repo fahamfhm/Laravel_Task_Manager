@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class CategoryController extends Controller
 {
@@ -21,6 +22,9 @@ class CategoryController extends Controller
      */
     public function create()
     {
+        if (Auth::user()->role !== 'admin') {
+            return redirect()->route('categories.index')->with('error', 'Unauthorized access.');
+        }
         return view('categories.create');
     }
 
@@ -29,7 +33,9 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        
+         if (Auth::user()->role !== 'admin') {
+            return redirect()->route('categories.index')->with('error', 'Unauthorized access.');
+        }
         $request->validate([
             'name' => 'required|string|max:255',
             'description' => 'nullable|string',
@@ -59,6 +65,9 @@ class CategoryController extends Controller
      */
     public function edit(Category $category)
     {
+         if (Auth::user()->role !== 'admin') {
+            return redirect()->route('categories.index')->with('error', 'Unauthorized access.');
+        }
         return view('categories.edit', compact('category'));
     }
 
@@ -67,6 +76,9 @@ class CategoryController extends Controller
      */
     public function update(Request $request, Category $category)
     {
+         if (Auth::user()->role !== 'admin') {
+            return redirect()->route('categories.index')->with('error', 'Unauthorized access.');
+        }
         $request->validate([
             'name' => 'required|string|max:255',
             'description' => 'nullable|string',
@@ -88,6 +100,9 @@ class CategoryController extends Controller
      */
     public function destroy(Category $category)
     {
+         if (Auth::user()->role !== 'admin') {
+            return redirect()->route('categories.index')->with('error', 'Unauthorized access.');
+        }
         $category->delete();
         return redirect()->route('categories.index')
                          ->with('success', 'Category deleted successfully.');
