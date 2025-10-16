@@ -51,12 +51,12 @@ npm install
 npm run dev
 ```
 
-###3. Create Environment File
+### 3. Create Environment File
 ```bash
 cp .env.example .env
 ```
 
-###4. Configure Database
+### 4. Configure Database
 Open the .env file and update your database credentials:
 ```bash
 DB_DATABASE=taskmanager
@@ -64,12 +64,12 @@ DB_USERNAME=root
 DB_PASSWORD=
 ```
 
-###5. Generate Application Key
+### 5. Generate Application Key
 ```bash
 php artisan key:generate
 ```
 
-###6. Run Migrations and Seeders
+### 6. Run Migrations and Seeders
 ```bash
 
 php artisan migrate --seed
