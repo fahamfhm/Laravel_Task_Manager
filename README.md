@@ -71,28 +71,27 @@ php artisan key:generate
 
 ### 6. Run Migrations and Seeders
 ```bash
-
 php artisan migrate --seed
-7. Start the Development Server
-bash
-Copy code
+```
+
+### 7. Start the Development Server
+```bash
 php artisan serve
+```
 Now open your browser and visit:
 👉 http://localhost:8000
+```
 
-🧑‍💻 User Roles
+```
+### 🧑‍💻 User Roles
 Role	Description
 Admin	Can manage all tasks, categories, and users.
 Intern	Can manage only their assigned tasks.
 
-📸 Screenshots
-Add screenshots to showcase your app UI:
+```
+```
 
-markdown
-Copy code
-![Dashboard Screenshot](public/images/dashboard.png)
-![Task Page](public/images/tasks.png)
-📂 Folder Structure Overview
+### 📂 Folder Structure Overview
 swift
 Copy code
 ├── app/
@@ -109,7 +108,10 @@ Copy code
 │   ├── migrations/
 │   └── seeders/
 └── public/
-🧰 Useful Artisan Commands
+```
+```
+### 🧰 Useful Artisan Commands
+
 Command	Description
 php artisan migrate	Run all migrations
 php artisan serve	Start local server
