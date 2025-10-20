@@ -8,8 +8,8 @@
     <div class="py-10">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             {{-- Welcome Message --}}
-            <div class="bg-gradient-to-r from-black via-blue-800 to-blue-600 dark:from-gray-800 dark:via-blue-900 dark:to-blue-700 text-white rounded-2xl shadow-md p-8 mb-8">
-                <h1 class="text-3xl font-bold mb-2">Welcome, {{ Auth::user()->name }} 🎉</h1>
+<div class="bg-gradient-to-r from-blue-900 via-indigo-800 to-violet-600 text-white rounded-2xl shadow-md p-8 mb-8">
+                <h1 class="text-3xl font-bold mb-2">Welcome, {{ Auth::user()->name }} </h1>
                 <p class="text-lg">
                     @if(Auth::user()->role === 'admin')
                         You’re logged in as an <strong>Admin</strong>. You can manage all tasks and categories.
@@ -41,19 +41,19 @@
 
             {{-- Quick Links --}}
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6">
-                <a href="{{ route('tasks.index') }}" class="bg-blue-900 dark:bg-blue-800 hover:bg-blue-700 dark:hover:bg-blue-600 text-white p-6 rounded-xl shadow text-center transition">
+                <a href="{{ route('tasks.index') }}" class="bg-indigo-900 dark:bg-indigo-700 hover:bg-blue-700 dark:hover:bg-blue-600 text-white p-6 rounded-xl shadow text-center transition">
                     <h4 class="text-xl font-semibold mb-1">Manage Tasks</h4>
                     <p class="text-sm opacity-80">View, edit, and assign tasks.</p>
                 </a>
 
-                <a href="{{ route('categories.index') }}" class="bg-blue-900 dark:bg-blue-800 hover:bg-blue-700 dark:hover:bg-blue-600 text-white p-6 rounded-xl shadow text-center transition">
+                <a href="{{ route('categories.index') }}" class="bg-violet-600 dark:bg-violet-600 hover:bg-blue-700 dark:hover:bg-blue-600 text-white p-6 rounded-xl shadow text-center transition">
                     <h4 class="text-xl font-semibold mb-1">Manage Categories</h4>
                     <p class="text-sm opacity-80">Add or edit task categories.</p>
                 </a>
 
                 @if(Auth::user()->role === 'admin')
-                    <a href="#" class="bg-blue-900 dark:bg-blue-800 hover:bg-blue-700 dark:hover:bg-blue-600 text-white p-6 rounded-xl shadow text-center transition cursor-not-allowed">
-                        <h4 class="text-xl font-semibold mb-1">Manage Interns</h4>
+                    <a href="#" class="bg-blue-900 dark:bg-blue-900 hover:bg-blue-700 dark:hover:bg-blue-600 text-white p-6 rounded-xl shadow text-center transition cursor-not-allowed">
+                        <h4 class="text-xl font-semibold mb-1">Manage Users</h4>
                         <p class="text-sm opacity-80">Feature coming soon</p>
                     </a>
                 @endif
