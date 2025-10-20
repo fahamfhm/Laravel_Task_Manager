@@ -13,14 +13,39 @@ class TaskController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        if (Auth::user()->role === 'admin') {
-            $tasks = Task::with('category', 'user')->get();
-        } else {
-            $tasks = Task::with('category', 'user')->where('user_id', Auth::id())->get();
+        $query = Task::with('category', 'user');
+
+        // Role-based filtering
+        if (Auth::user()->role !== 'admin') {
+            $query->where('user_id', Auth::id());
         }
-        return view('tasks.index', compact('tasks'));
+
+        // Apply filters
+        if ($request->filled('status')) {
+            $query->where('status', $request->status);
+        }
+
+        if ($request->filled('category_id')) {
+            $query->where('category_id', $request->category_id);
+        }
+
+        if ($request->filled('user_id') && Auth::user()->role === 'admin') {
+            $query->where('user_id', $request->user_id);
+        }
+
+        if ($request->filled('search')) {
+            $query->where('task_name', 'like', '%' . $request->search . '%');
+        }
+
+        $tasks = $query->get();
+
+        // Get data for filter dropdowns
+        $categories = Category::all();
+        $users = User::all();
+
+        return view('tasks.index', compact('tasks', 'categories', 'users'));
     }
 
     /**

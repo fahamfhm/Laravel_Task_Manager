@@ -9,7 +9,17 @@
         <!-- Fonts -->
         <link rel="preconnect" href="https://fonts.bunny.net">
         <link href="https://fonts.bunny.net/css?family=instrument-sans:400,500,600" rel="stylesheet" />
-        <link rel="icon" type="image/x-icon" href="{{ asset('images/logo.png') }}">
+        <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}">
+
+        <!-- Theme Script -->
+        <script>
+            // Check for saved theme preference or default to system preference
+            const theme = localStorage.getItem('theme') || 
+                         (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+            if (theme === 'dark') {
+                document.documentElement.classList.add('dark');
+            }
+        </script>
 
         <!-- Styles / Scripts -->
         @if (file_exists(public_path('build/manifest.json')) || file_exists(public_path('hot')))
@@ -21,12 +31,24 @@
         @endif
     </head>
 
-    <body class="bg-gray-50 text-gray-800 flex flex-col min-h-screen  font-sans">
+    <body class="bg-gray-50 dark:bg-gray-900 text-gray-800 dark:text-gray-200 flex flex-col min-h-screen font-sans">
     <!-- Header -->
     <header class="w-full max-w-7xl mx-auto flex justify-between items-center py-6">
-        <h1 class="text-2xl font-bold text-gray-900">TaskManager</h1>
-        @if (Route::has('login'))
-        <nav class="flex gap-4">
+        <h1 class="text-2xl font-bold text-gray-900 dark:text-white">TaskManager</h1>
+        <div class="flex items-center gap-4">
+            <!-- Theme Toggle -->
+            <button id="theme-toggle" class="p-2 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-700 transition">
+                <!-- Sun icon (visible in dark mode) -->
+                <svg id="theme-toggle-dark-icon" class="hidden w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" fill-rule="evenodd" clip-rule="evenodd"></path>
+                </svg>
+                <!-- Moon icon (visible in light mode) -->
+                <svg id="theme-toggle-light-icon" class="hidden w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path>
+                </svg>
+            </button>
+            @if (Route::has('login'))
+            <nav class="flex gap-4">
             @auth
                 <a href="{{ url('/dashboard') }}" class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition font-medium">
                     Dashboard
@@ -43,26 +65,36 @@
             @endauth
         </nav>
         @endif
+        </div>
     </header>
 
     <!-- Hero Section -->
     <section class="w-full max-w-7xl mx-auto flex flex-col lg:flex-row items-center gap-12 mt-8">
         <!-- Text -->
         <div class="flex-1 text-center lg:text-left">
-            <h2 class="text-4xl lg:text-5xl font-extrabold mb-6 leading-tight text-gray-900">
+            <h2 class="text-4xl lg:text-5xl font-extrabold mb-6 leading-tight text-gray-900 dark:text-white">
                 Stay Organized, Boost Productivity
             </h2>
-            <p class="text-lg lg:text-xl text-gray-600 mb-8">
+            <p class="text-lg lg:text-xl text-gray-600 dark:text-gray-400 mb-8">
                 Manage your tasks efficiently, track progress seamlessly, and achieve your goals with TaskManager. Everything you need to stay productive, all in one place.
             </p>
+
+            @if (Route::has('login'))
             <div class="flex justify-center lg:justify-start gap-4">
-                <a href="{{ route('register') }}" class="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition font-semibold shadow-md">
+                 @auth
+                <a href="{{ url('/dashboard') }}" class="px-4 py-2  bg-gray-200 dark:bg-gray-700 text-gray-900 dark:text-white rounded-lg hover:bg-gray-300 dark:hover:bg-gray-600 transition font-semibold shadow-md">
+                    Dashboard
+                </a>
+            @else
+                <a href="{{ route('register') }}" class="px-6 py-3 bg-gray-200 dark:bg-gray-700 text-gray-900 dark:text-white rounded-lg hover:bg-gray-300 dark:hover:bg-gray-600 transition font-semibold shadow-md">
                     Register
                 </a>
-                <a href="{{ route('login') }}" class="px-6 py-3 bg-gray-200 text-gray-900 rounded-lg hover:bg-gray-300 transition font-semibold shadow-md">
+                <a href="{{ route('login') }}" class="px-6 py-3 bg-gray-200 dark:bg-gray-700 text-gray-900 dark:text-white rounded-lg hover:bg-gray-300 dark:hover:bg-gray-600 transition font-semibold shadow-md">
                     Login
                 </a>
+            @endauth
             </div>
+            @endif
         </div>
 
         <!-- Illustration -->
@@ -73,28 +105,56 @@
 
     <!-- Features Section -->
     <section class="mt-20 w-full max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-10 text-center">
-        <div class="p-6 rounded-xl shadow-lg bg-white hover:shadow-xl transition">
+        <div class="p-6 rounded-xl shadow-lg bg-white dark:bg-gray-800 hover:shadow-xl transition">
             <img src="https://cdn-icons-png.flaticon.com/512/3090/3090627.png" class="mx-auto w-16 mb-4" alt="Organize Icon">
-            <h3 class="text-xl font-bold mb-2">Organize Tasks</h3>
-            <p class="text-gray-600">Categorize and prioritize your tasks for ultimate clarity and focus.</p>
+            <h3 class="text-xl font-bold mb-2 dark:text-white">Organize Tasks</h3>
+            <p class="text-gray-600 dark:text-gray-400">Categorize and prioritize your tasks for ultimate clarity and focus.</p>
         </div>
-        <div class="p-6 rounded-xl shadow-lg bg-white hover:shadow-xl transition">
+        <div class="p-6 rounded-xl shadow-lg bg-white dark:bg-gray-800 hover:shadow-xl transition">
             <img src="https://cdn-icons-png.flaticon.com/512/892/892781.png" class="mx-auto w-16 mb-4" alt="Track Icon">
-            <h3 class="text-xl font-bold mb-2">Track Progress</h3>
-            <p class="text-gray-600">Monitor your tasks and deadlines effortlessly to stay ahead.</p>
+            <h3 class="text-xl font-bold mb-2 dark:text-white">Track Progress</h3>
+            <p class="text-gray-600 dark:text-gray-400">Monitor your tasks and deadlines effortlessly to stay ahead.</p>
         </div>
-        <div class="p-6 rounded-xl shadow-lg bg-white hover:shadow-xl transition">
+        <div class="p-6 rounded-xl shadow-lg bg-white dark:bg-gray-800 hover:shadow-xl transition">
             <img src="https://cdn-icons-png.flaticon.com/512/1828/1828884.png" class="mx-auto w-16 mb-4" alt="Achieve Icon">
-            <h3 class="text-xl font-bold mb-2">Achieve Goals</h3>
-            <p class="text-gray-600">Complete your tasks efficiently and reach your goals with confidence.</p>
+            <h3 class="text-xl font-bold mb-2 dark:text-white">Achieve Goals</h3>
+            <p class="text-gray-600 dark:text-gray-400">Complete your tasks efficiently and reach your goals with confidence.</p>
         </div>
     </section>
 
     <!-- Footer -->
-    <footer class="mt-10 w-full max-w-7xl mx-auto text-center text-gray-500 py-6 border-t border-gray-200">
+    <footer class="mt-10 w-full max-w-7xl mx-auto text-center text-gray-500 dark:text-gray-400 py-6 border-t border-gray-200 dark:border-gray-700">
         &copy; {{ date('Y') }} TaskManager. All rights reserved.
     </footer>
-</body>
 
+    <!-- Theme Toggle Script -->
+    <script>
+        const themeToggleBtn = document.getElementById('theme-toggle');
+        const themeToggleDarkIcon = document.getElementById('theme-toggle-dark-icon');
+        const themeToggleLightIcon = document.getElementById('theme-toggle-light-icon');
+
+        // Set initial icon state
+        if (document.documentElement.classList.contains('dark')) {
+            themeToggleDarkIcon.classList.remove('hidden');
+        } else {
+            themeToggleLightIcon.classList.remove('hidden');
+        }
+
+        themeToggleBtn.addEventListener('click', function() {
+            // Toggle icons
+            themeToggleDarkIcon.classList.toggle('hidden');
+            themeToggleLightIcon.classList.toggle('hidden');
+
+            // Toggle dark mode
+            if (document.documentElement.classList.contains('dark')) {
+                document.documentElement.classList.remove('dark');
+                localStorage.setItem('theme', 'light');
+            } else {
+                document.documentElement.classList.add('dark');
+                localStorage.setItem('theme', 'dark');
+            }
+        });
+    </script>
+</body>
 
 </html>
